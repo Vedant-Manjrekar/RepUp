@@ -21,9 +21,9 @@ const Login = ({ switchToSignup }) => {
   };
 
   return (
-    <div className="w-full max-w-md p-8 bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 border border-gray-100 dark:border-gray-800">
+    <div className="w-full max-w-md p-8 bg-white/80 dark:bg-dark-card/80 backdrop-blur-xl rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 border border-gray-100 dark:border-gray-800">
       <div className="text-center mb-8">
-        <h2 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-violet-600">
+        <h2 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-violet-600 dark:from-teal-400 dark:to-teal-600">
           Welcome Back
         </h2>
         <p className="text-gray-500 dark:text-gray-400 mt-2">Sign in to track your progress</p>
@@ -40,12 +40,12 @@ const Login = ({ switchToSignup }) => {
         <div className="space-y-2">
           <label className="text-sm font-medium text-gray-700 dark:text-gray-300 ml-1">Email</label>
           <div className="relative group">
-            <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500 group-focus-within:text-indigo-500 transition-colors h-5 w-5" />
+            <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500 group-focus-within:text-indigo-500 dark:group-focus-within:text-teal-accent transition-colors h-5 w-5" />
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full pl-10 pr-4 py-3 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 outline-none transition-all placeholder:text-gray-400 dark:placeholder:text-gray-500 dark:text-gray-100"
+              className="w-full pl-10 pr-4 py-3 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-indigo-500/20 dark:focus:ring-teal-500/20 focus:border-indigo-500 dark:focus:border-teal-500 outline-none transition-all placeholder:text-gray-400 dark:placeholder:text-gray-500 dark:text-gray-100"
               placeholder="you@example.com"
               required
             />
@@ -55,12 +55,12 @@ const Login = ({ switchToSignup }) => {
         <div className="space-y-2">
           <label className="text-sm font-medium text-gray-700 dark:text-gray-300 ml-1">Password</label>
           <div className="relative group">
-            <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500 group-focus-within:text-indigo-500 transition-colors h-5 w-5" />
+            <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500 group-focus-within:text-indigo-500 dark:group-focus-within:text-teal-accent transition-colors h-5 w-5" />
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full pl-10 pr-4 py-3 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 outline-none transition-all placeholder:text-gray-400 dark:placeholder:text-gray-500 dark:text-gray-100"
+              className="w-full pl-10 pr-4 py-3 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-indigo-500/20 dark:focus:ring-teal-500/20 focus:border-indigo-500 dark:focus:border-teal-500 outline-none transition-all placeholder:text-gray-400 dark:placeholder:text-gray-500 dark:text-gray-100"
               placeholder="••••••••"
               required
             />
@@ -70,7 +70,7 @@ const Login = ({ switchToSignup }) => {
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-700 hover:to-violet-700 text-white font-semibold py-3 px-4 rounded-xl shadow-lg shadow-indigo-500/30 hover:shadow-indigo-500/40 active:scale-[0.98] transition-all duration-200 flex items-center justify-center gap-2"
+          className="w-full bg-gradient-to-r from-indigo-600 to-violet-600 dark:from-teal-600 dark:to-teal-700 hover:from-indigo-700 hover:to-violet-700 dark:hover:from-teal-700 dark:hover:to-teal-800 text-white font-semibold py-3 px-4 rounded-xl shadow-lg shadow-indigo-500/30 dark:shadow-none active:scale-[0.98] transition-all duration-200 flex items-center justify-center gap-2"
         >
           {loading ? (
             <Loader2 className="h-5 w-5 animate-spin" />

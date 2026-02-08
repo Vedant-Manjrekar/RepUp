@@ -1,21 +1,19 @@
 import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
 import { LogOut, Dumbbell, Sun, Moon } from 'lucide-react';
+import logo from '../assets/repup1.png';
 
 const Header = () => {
   const { user, logout } = useAuth();
   const { theme, toggleTheme } = useTheme();
 
   return (
-    <header className="bg-white/80 dark:bg-gray-900/80 backdrop-blur-md sticky top-0 z-50 shadow-sm border-b border-gray-100 dark:border-gray-800 transition-colors duration-300">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          <div className="flex items-center gap-2">
-            <div className="bg-indigo-600 p-2 rounded-lg">
-              <Dumbbell className="h-6 w-6 text-white" />
-            </div>
-            <h1 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-violet-600">
-              Exercise Tracker
+    <header className="bg-white/80 dark:bg-dark-bg/80 backdrop-blur-md border-b border-gray-100 dark:border-gray-800 sticky top-0 z-50 transition-all duration-300">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+          <div className="flex items-center">
+            <img src={logo} alt="" className='h-12 w-12 ml-2' />
+            <h1 className="text-xl font-bold text-gray-900 dark:text-teal-accent">
+              RepUp
             </h1>
           </div>
           
@@ -44,7 +42,6 @@ const Header = () => {
             )}
           </div>
         </div>
-      </div>
     </header>
   );
 };

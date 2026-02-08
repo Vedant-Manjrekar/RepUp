@@ -158,14 +158,14 @@ const Analytics = () => {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center h-screen bg-gray-50 dark:bg-gray-950 transition-colors duration-300">
-        <Loader2 className="h-8 w-8 animate-spin text-indigo-600" />
+      <div className="flex items-center justify-center h-screen bg-gray-50 dark:bg-dark-bg transition-colors duration-300">
+        <Loader2 className="h-8 w-8 animate-spin text-indigo-600 dark:text-teal-accent" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 pb-20 sm:pb-8 transition-colors duration-300">
+    <div className="min-h-screen bg-gray-50 dark:bg-dark-bg pb-20 sm:pb-8 transition-colors duration-300">
        <div className="max-w-7xl mx-auto px-4 pt-6 pb-4">
           <div className="flex justify-between items-center mb-6">
              <div>
@@ -173,7 +173,7 @@ const Analytics = () => {
                 <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Track your progress and performance</p>
              </div>
              <div className="flex gap-2">
-                <div className="h-10 w-10 rounded-xl bg-white dark:bg-gray-900 shadow-sm border border-gray-100 dark:border-gray-800 flex items-center justify-center">
+                <div className="h-10 w-10 rounded-xl bg-white dark:bg-dark-card shadow-sm border border-gray-100 dark:border-gray-800 flex items-center justify-center">
                     <User className="h-5 w-5 text-gray-600 dark:text-gray-400" />
                 </div>
              </div>
@@ -182,9 +182,9 @@ const Analytics = () => {
           {/* Controls Bar */}
           <div className="flex items-center justify-between gap-2 mb-6">
              {/* Muscle Filter */}
-             <div className="bg-white dark:bg-gray-900 p-1 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 flex items-center pr-2">
-                <div className="h-7 w-7 rounded-lg bg-indigo-50 dark:bg-indigo-900/30 flex items-center justify-center mr-2">
-                   <Target className="h-3.5 w-3.5 text-indigo-600 dark:text-indigo-400" />
+             <div className="bg-white dark:bg-dark-card p-1 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 flex items-center pr-2">
+                <div className="h-7 w-7 rounded-lg bg-indigo-50 dark:bg-dark-teal/20 flex items-center justify-center mr-2">
+                   <Target className="h-3.5 w-3.5 text-indigo-600 dark:text-teal-accent" />
                 </div>
                 <div className="relative">
                    <select
@@ -193,7 +193,7 @@ const Analytics = () => {
                      className="appearance-none bg-transparent text-[11px] font-bold text-gray-900 dark:text-gray-100 py-1 pl-1 pr-5 cursor-pointer focus:outline-none"
                    >
                      {PREDEFINED_MUSCLE_GROUPS.map(muscle => (
-                       <option key={muscle} value={muscle} className="dark:bg-gray-900">{muscle}</option>
+                       <option key={muscle} value={muscle} className="dark:bg-dark-card">{muscle}</option>
                      ))}
                    </select>
                    <ChevronDown className="absolute right-0 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-gray-400 dark:text-gray-500 pointer-events-none" />
@@ -201,14 +201,14 @@ const Analytics = () => {
              </div>
 
              {/* Timeframe Selector */}
-             <div className="bg-white dark:bg-gray-900 p-1 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 flex">
+             <div className="bg-white dark:bg-dark-card p-1 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 flex">
                 {['week', 'month', 'year', 'all'].map((tf) => (
                    <button
                    key={tf}
                    onClick={() => setTimeframe(tf)}
                    className={`px-3 py-1.5 text-[9px] font-bold rounded-lg transition-all capitalize ${
                       timeframe === tf
-                         ? 'bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 shadow-md'
+                         ? 'bg-gray-900 dark:bg-teal-accent text-white dark:text-white shadow-md'
                          : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800'
                    }`}
                    >
@@ -252,7 +252,7 @@ const Analytics = () => {
            {/* Charts Section */}
            <div className="space-y-6">
 
-              <div className="bg-white dark:bg-gray-900 rounded-[2rem] shadow-sm border border-gray-100 dark:border-gray-800 p-6 transition-colors duration-300">
+              <div className="bg-white dark:bg-dark-card rounded-[2rem] shadow-sm border border-gray-100 dark:border-gray-800 p-6 transition-colors duration-300">
                  <MuscleProgressChart 
                      workouts={filteredWorkouts} 
                      selectedMuscle={selectedMuscle}
@@ -260,7 +260,7 @@ const Analytics = () => {
               </div>
 
              
-              <div className="bg-white dark:bg-gray-900 rounded-[2rem] shadow-sm border border-gray-100 dark:border-gray-800 p-6 transition-colors duration-300">
+              <div className="bg-white dark:bg-dark-card rounded-[2rem] shadow-sm border border-gray-100 dark:border-gray-800 p-6 transition-colors duration-300">
                  <ActivityGraph 
                      workouts={filteredWorkouts} 
                      exercises={filteredExercises} 

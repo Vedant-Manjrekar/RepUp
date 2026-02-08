@@ -53,16 +53,16 @@ const RecentWorkouts = ({ workouts, setWorkouts }) => {
   };
 
   return (
-    <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 flex flex-col h-full overflow-hidden transition-colors duration-300">
+    <div className="bg-white dark:bg-dark-card rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 flex flex-col h-full overflow-hidden transition-colors duration-300">
       <div className="p-6 border-b border-gray-50 dark:border-gray-800 flex items-center justify-between">
         <h2 className="text-lg font-bold text-gray-800 dark:text-gray-100">Recent Logs</h2>
-        <span className="text-xs font-medium text-gray-400 dark:text-gray-500 bg-gray-50 dark:bg-gray-800 px-2 py-1 rounded-full">{workouts.length} entries</span>
+        <span className="text-xs font-medium text-gray-400 dark:text-gray-500 bg-gray-50 dark:bg-dark-bg px-2 py-1 rounded-full">{workouts.length} entries</span>
       </div>
       
       <div className="flex-1 overflow-y-auto custom-scrollbar p-0">
         {/* Desktop Table View (Hidden on Mobile) */}
         <table className="w-full text-left border-collapse hidden sm:table">
-          <thead className="bg-gray-50/50 dark:bg-gray-800/50 sticky top-0 backdrop-blur-sm z-10">
+          <thead className="bg-gray-50/50 dark:bg-dark-bg/80 sticky top-0 backdrop-blur-sm z-10">
             <tr>
               <th className="px-6 py-3 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider w-[40%]">Exercise</th>
               <th className="px-6 py-3 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider w-[30%]">Load</th>
@@ -165,7 +165,7 @@ const RecentWorkouts = ({ workouts, setWorkouts }) => {
          {/* Mobile Card View (Visible ONLY on Mobile) */}
          <div className="sm:hidden flex flex-col divide-y divide-gray-50 dark:divide-gray-800">
             {workouts.map((workout) => (
-              <div key={workout._id} className="p-4 bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+              <div key={workout._id} className="p-4 bg-white dark:bg-dark-card hover:bg-gray-50 dark:hover:bg-dark-bg transition-colors">
                   {editingId === workout._id ? (
                       <div className="space-y-3">
                           <div className="flex justify-between items-center">

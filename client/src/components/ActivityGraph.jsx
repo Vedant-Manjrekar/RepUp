@@ -53,11 +53,11 @@ const ActivityGraph = ({ workouts, exercises, selectedExerciseId, onSelectExerci
       const isPR = data.weight === stats.pr;
 
       return (
-        <div className="bg-white dark:bg-gray-900 p-3 rounded-lg shadow-xl border border-indigo-50 dark:border-gray-800 min-w-[140px] transition-colors duration-300">
-          <p className="text-[10px] font-bold text-indigo-600 dark:text-indigo-400 mb-0.5 uppercase tracking-wider">{selectedExerciseName}</p>
+        <div className="bg-white dark:bg-dark-card p-3 rounded-lg shadow-xl border border-emerald-50 dark:border-gray-800 min-w-[180px] transition-colors duration-300">
+          <p className="text-[10px] font-bold text-indigo-600 dark:text-teal-accent mb-0.5 uppercase tracking-wider">{selectedExerciseName}</p>
           <p className="text-xs font-semibold text-gray-500 dark:text-gray-400 mb-2">{new Date(label).toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' })}</p>
           <div className="flex items-center gap-2 mb-2">
-             <div className="w-2 h-2 rounded-full bg-indigo-600 dark:bg-indigo-400"></div>
+             <div className="w-2 h-2 rounded-full bg-indigo-600 dark:bg-teal-accent"></div>
              <p className="text-lg font-bold text-indigo-900 dark:text-gray-100">{data.weight} <span className="text-xs font-normal text-gray-500 dark:text-gray-400">kg</span></p>
              {isPR && <Trophy className="h-3 w-3 text-amber-500 ml-1" />}
           </div>
@@ -95,11 +95,11 @@ const ActivityGraph = ({ workouts, exercises, selectedExerciseId, onSelectExerci
               <select
                 value={selectedExerciseId}
                 onChange={(e) => onSelectExercise(e.target.value)}
-                className="appearance-none bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 hover:border-gray-200 dark:hover:border-gray-700 text-[10px] font-bold py-1 pl-2 pr-5 rounded-lg cursor-pointer focus:outline-none transition-all max-w-[140px] shadow-sm"
+                className="appearance-none bg-white dark:bg-dark-card border border-gray-100 dark:border-gray-800 text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 hover:border-gray-200 dark:hover:border-gray-700 text-[10px] font-bold py-1 pl-2 pr-5 rounded-lg cursor-pointer focus:outline-none transition-all max-w-[140px] shadow-sm"
               >
-                <option value="" className="dark:bg-gray-900">Select Exercise</option>
+                <option value="" className="dark:bg-dark-card">Select Exercise</option>
                 {exercises.map((ex) => (
-                  <option key={ex._id} value={ex._id} className="dark:bg-gray-900">
+                  <option key={ex._id} value={ex._id} className="dark:bg-dark-card">
                     {ex.name}
                   </option>
                 ))}
@@ -114,8 +114,8 @@ const ActivityGraph = ({ workouts, exercises, selectedExerciseId, onSelectExerci
             <AreaChart data={chartData} margin={{ top: 10, right: 0, bottom: 0, left: -20 }}>
               <defs>
                 <linearGradient id="colorWeight" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#4f46e5" stopOpacity={0.3}/>
-                  <stop offset="95%" stopColor="#4f46e5" stopOpacity={0}/>
+                  <stop offset="5%" stopColor="#2ba09d" stopOpacity={0.3}/>
+                  <stop offset="95%" stopColor="#2ba09d" stopOpacity={0}/>
                 </linearGradient>
               </defs>
               <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="currentColor" className="text-gray-100 dark:text-gray-800" />
@@ -137,11 +137,11 @@ const ActivityGraph = ({ workouts, exercises, selectedExerciseId, onSelectExerci
                 tickLine={false} 
                 axisLine={false}
               />
-              <Tooltip content={<CustomTooltip />} cursor={{ stroke: '#6366f1', strokeWidth: 1, strokeDasharray: '4 4' }} />
+              <Tooltip content={<CustomTooltip />} cursor={{ stroke: '#2ba09d', strokeWidth: 1, strokeDasharray: '4 4' }} />
               <Area
                 type="monotone"
                 dataKey="weight"
-                stroke="#4f46e5"
+                stroke="#2ba09d"
                 strokeWidth={3}
                 fillOpacity={1}
                 fill="url(#colorWeight)"

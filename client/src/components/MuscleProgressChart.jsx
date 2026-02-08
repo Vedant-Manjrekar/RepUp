@@ -110,7 +110,7 @@ const MuscleProgressChart = ({ workouts, selectedMuscle }) => {
     <div className="w-full">
       <div className="flex justify-between items-start mb-6">
         <div>
-           <h3 className="text-[10px] font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-[0.2em] mb-1">{selectedMuscle}</h3>
+           <h3 className="text-[10px] font-bold text-indigo-600 dark:text-teal-accent uppercase tracking-[0.2em] mb-1">{selectedMuscle}</h3>
            <h2 className="text-sm font-bold text-gray-900 dark:text-gray-100 uppercase tracking-wide">Metric Over Time</h2>
            <div className="flex gap-4 mt-2">
               <div>
@@ -132,15 +132,15 @@ const MuscleProgressChart = ({ workouts, selectedMuscle }) => {
             <AreaChart data={chartData.data} margin={{ top: 10, right: 0, bottom: 0, left: -20 }}>
                <defs>
                 <linearGradient id="colorVolume" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#818cf8" stopOpacity={0.8}/>
-                  <stop offset="95%" stopColor="#818cf8" stopOpacity={0}/>
+                  <stop offset="5%" stopColor="#2ba09d" stopOpacity={0.8}/>
+                  <stop offset="95%" stopColor="#2ba09d" stopOpacity={0}/>
                 </linearGradient>
               </defs>
-              <Tooltip content={<CustomTooltip />} cursor={{ stroke: '#818cf8', strokeWidth: 1, strokeDasharray: '4 4' }} />
+              <Tooltip content={<CustomTooltip />} cursor={{ stroke: '#2ba09d', strokeWidth: 1, strokeDasharray: '4 4' }} />
               <Area
                 type="monotone"
                 dataKey="volume"
-                stroke="#6366f1"
+                stroke="#2ba09d"
                 strokeWidth={3}
                 fill="url(#colorVolume)"
                 fillOpacity={0.6}

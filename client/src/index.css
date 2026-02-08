@@ -1,3 +1,29 @@
 @import "tailwindcss";
 
+@theme {
+  --color-primary-50: #fff7ed;
+  --color-primary-100: #ffedd5;
+  --color-primary-200: #fed7aa;
+  --color-primary-300: #fdba74;
+  --color-primary-400: #fb923c;
+  --color-primary-500: #f97316;
+  --color-primary-600: #ea580c;
+  --color-primary-700: #c2410c;
+  
+  /* New Dark Mode Palette */
+  --color-dark-bg: #05090b;
+  --color-dark-card: #090f12;
+  --color-dark-teal: #2ba09d;
+  
+  --shadow-premium: 0 4px 20px -2px rgba(0, 0, 0, 0.05), 0 2px 10px -2px rgba(0, 0, 0, 0.03);
+}
+
 @custom-variant dark (&:where(.dark, .dark *));
+
+@utility bg-teal-accent {
+  background-color: var(--color-dark-teal);
+}
+
+@utility text-teal-accent {
+  color: var(--color-dark-teal);
+}

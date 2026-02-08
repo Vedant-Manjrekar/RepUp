@@ -65,10 +65,10 @@ const ProgressTracker = ({ exercises, onWorkoutAdded, workouts = [] }) => {
   };
 
   return (
-    <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 p-6 h-full transition-colors duration-300">
+    <div className="bg-white dark:bg-dark-card rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 p-6 h-full transition-colors duration-300">
       <div className="flex items-center gap-2 mb-6">
-        <div className="bg-emerald-100 dark:bg-emerald-900/30 p-2 rounded-lg">
-          <Activity className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
+        <div className="bg-emerald-100 dark:bg-dark-teal/20 p-2 rounded-lg">
+          <Activity className="h-5 w-5 text-emerald-600 dark:text-teal-accent" />
         </div>
         <h2 className="text-lg font-bold text-gray-800 dark:text-gray-100">Log Workout</h2>
       </div>
@@ -92,17 +92,17 @@ const ProgressTracker = ({ exercises, onWorkoutAdded, workouts = [] }) => {
           {/* PR Stats Badge */}
           {prStats && (
             <div className="mt-3 grid grid-cols-3 gap-2">
-              <div className="bg-amber-50 dark:bg-amber-900/20 border border-amber-100 dark:border-amber-800/50 rounded-lg p-2 text-center">
-                <div className="text-[10px] uppercase text-amber-600 dark:text-amber-400 font-bold tracking-wider">Max Weight</div>
-                <div className="text-sm font-bold text-amber-700 dark:text-amber-300">{prStats.maxWeight} <span className="text-[10px] font-normal">kg</span></div>
+              <div className="bg-amber-50 dark:bg-dark-teal/10 border border-amber-100 dark:border-dark-teal/20 rounded-lg p-2 text-center">
+                <div className="text-[10px] uppercase text-amber-600 dark:text-teal-accent font-bold tracking-wider">Max Weight</div>
+                <div className="text-sm font-bold text-amber-700 dark:text-teal-accent/90">{prStats.maxWeight} <span className="text-[10px] font-normal">kg</span></div>
               </div>
-               <div className="bg-amber-50 dark:bg-amber-900/20 border border-amber-100 dark:border-amber-800/50 rounded-lg p-2 text-center">
-                <div className="text-[10px] uppercase text-amber-600 dark:text-amber-400 font-bold tracking-wider">Max Reps</div>
-                <div className="text-sm font-bold text-amber-700 dark:text-amber-300">{prStats.maxReps}</div>
+               <div className="bg-amber-50 dark:bg-dark-teal/10 border border-amber-100 dark:border-dark-teal/20 rounded-lg p-2 text-center">
+                <div className="text-[10px] uppercase text-amber-600 dark:text-teal-accent font-bold tracking-wider">Max Sets</div>
+                <div className="text-sm font-bold text-amber-700 dark:text-teal-accent/90">{prStats.maxSets}</div>
               </div>
-               <div className="bg-amber-50 dark:bg-amber-900/20 border border-amber-100 dark:border-amber-800/50 rounded-lg p-2 text-center">
-                <div className="text-[10px] uppercase text-amber-600 dark:text-amber-400 font-bold tracking-wider">Max Sets</div>
-                <div className="text-sm font-bold text-amber-700 dark:text-amber-300">{prStats.maxSets}</div>
+               <div className="bg-amber-50 dark:bg-dark-teal/10 border border-amber-100 dark:border-dark-teal/20 rounded-lg p-2 text-center">
+                <div className="text-[10px] uppercase text-amber-600 dark:text-teal-accent font-bold tracking-wider">Max Reps</div>
+                <div className="text-sm font-bold text-amber-700 dark:text-teal-accent/90">{prStats.maxReps}</div>
               </div>
             </div>
           )}
@@ -157,7 +157,7 @@ const ProgressTracker = ({ exercises, onWorkoutAdded, workouts = [] }) => {
         <button
           type="submit"
           disabled={loading || !selectedExercise || !weight || !reps || !sets}
-          className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-medium py-2.5 rounded-xl transition-colors flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed mt-2"
+          className="w-full bg-emerald-600 hover:bg-emerald-700 dark:bg-teal-600 dark:hover:bg-teal-700 text-white font-medium py-2.5 rounded-xl transition-colors flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed mt-2"
         >
           {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
           Log Set

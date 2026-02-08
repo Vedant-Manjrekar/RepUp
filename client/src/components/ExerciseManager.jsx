@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import api from '../api/axios';
 import { useAuth } from '../context/AuthContext';
-import { Plus, Trash2, Dumbbell, Loader2, Pencil, X } from 'lucide-react';
+import { Plus, Trash2, Dumbbell, Loader2, Pencil, X, Save } from 'lucide-react';
 
 const PREDEFINED_MUSCLE_GROUPS = [
   'Chest', 'Back', 'Shoulders', 'Biceps', 'Triceps', 
@@ -86,12 +86,24 @@ const ExerciseManager = ({ exercises, setExercises }) => {
   };
 
   return (
-    <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 p-6 h-full transition-colors duration-300">
-      <div className="flex items-center gap-2 mb-6">
-        <div className="bg-violet-100 dark:bg-violet-900/30 p-2 rounded-lg">
-          <Dumbbell className="h-5 w-5 text-violet-600 dark:text-violet-400" />
+    <div className="bg-white dark:bg-dark-card rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 p-6 h-full transition-all duration-300">
+      <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center gap-2">
+          <div className={`${editId ? 'bg-indigo-100 dark:bg-indigo-900/30' : 'bg-violet-100 dark:bg-dark-teal/20'} p-2 rounded-lg transition-colors`}>
+            <Dumbbell className={`h-5 w-5 ${editId ? 'text-indigo-600' : 'text-violet-600 dark:text-teal-accent'}`} />
+          </div>
+          <div>
+            <h2 className="text-lg font-bold text-gray-800 dark:text-gray-100">
+              {editId ? 'Edit Exercise' : 'Manage Exercises'}
+            </h2>
+            {editId && <p className="text-[10px] text-indigo-500 font-medium uppercase tracking-wider">Currently Editing</p>}
+          </div>
         </div>
-        <h2 className="text-lg font-bold text-gray-800 dark:text-gray-100">Manage Exercises</h2>
+        {editId && (
+          <button onClick={cancelEdit} className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200">
+            <X className="h-5 w-5" />
+          </button>
+        )}
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-4 mb-8">
@@ -156,21 +168,20 @@ const ExerciseManager = ({ exercises, setExercises }) => {
                 type="button"
                 onClick={cancelEdit}
                 disabled={loading}
-                className="flex-1 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 font-medium py-2.5 rounded-xl transition-colors flex items-center justify-center gap-2"
+                className="flex-1 bg-gray-50 dark:bg-dark-bg hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300 font-medium py-2.5 rounded-xl transition-all border border-gray-200 dark:border-gray-700 flex items-center justify-center gap-2"
                 >
-                <X className="h-4 w-4" />
                 Cancel
                 </button>
             )}
             <button
             type="submit"
             disabled={loading || !name || !muscleGroup}
-            className={`flex-[2] text-white font-medium py-2.5 rounded-xl transition-colors flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed ${
-                editId ? 'bg-indigo-600 hover:bg-indigo-700' : 'bg-violet-600 hover:bg-violet-700'
+            className={`flex-[2] text-white font-bold py-2.5 rounded-xl transition-all shadow-sm active:scale-[0.98] flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed ${
+                editId ? 'bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-600 dark:hover:bg-indigo-700' : 'bg-violet-600 hover:bg-violet-700 dark:bg-teal-600 dark:hover:bg-teal-700'
             }`}
             >
-            {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : (editId ? <Pencil className="h-4 w-4" /> : <Plus className="h-4 w-4" />)}
-            {editId ? 'Update Exercise' : 'Add Exercise'}
+            {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : (editId ? <Save className="h-4 w-4" /> : <Plus className="h-4 w-4" />)}
+            {editId ? 'Save Changes' : 'Add Exercise'}
             </button>
         </div>
       </form>
@@ -184,32 +195,41 @@ const ExerciseManager = ({ exercises, setExercises }) => {
           exercises.map((exercise) => (
             <div
               key={exercise._id}
-              className={`group flex items-center justify-between p-3 rounded-xl border transition-all ${
+              className={`flex items-center justify-between p-3.5 rounded-2xl border transition-all duration-300 ${
                   editId === exercise._id 
-                  ? 'bg-indigo-50 dark:bg-indigo-950/30 border-indigo-200 dark:border-indigo-800' 
-                  : 'hover:bg-gray-50 dark:hover:bg-gray-800/50 border-transparent hover:border-gray-100 dark:hover:border-gray-800'
+                  ? 'bg-indigo-50/50 dark:bg-indigo-900/10 border-indigo-200 dark:border-indigo-800 shadow-sm' 
+                  : 'bg-gray-50/30 dark:bg-dark-bg/30 border-gray-100/50 dark:border-gray-800/50 hover:border-violet-200 dark:hover:border-teal-accent/30 hover:bg-white dark:hover:bg-dark-bg'
               }`}
             >
-              <div>
-                <h3 className={`font-medium ${editId === exercise._id ? 'text-indigo-900 dark:text-indigo-400' : 'text-gray-900 dark:text-gray-100'}`}>{exercise.name}</h3>
-                <span className="text-xs text-gray-500 dark:text-gray-400 bg-white/50 dark:bg-gray-800/50 px-2 py-0.5 rounded-full">
-                  {exercise.muscleGroup}
-                </span>
+              <div className="flex items-center gap-3">
+                <div className={`p-2 rounded-xl ${editId === exercise._id ? 'bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600' : 'bg-white dark:bg-dark-card text-gray-400 dark:text-gray-500 border border-gray-100 dark:border-gray-800'}`}>
+                  <Dumbbell className="h-4 w-4" />
+                </div>
+                <div>
+                  <h3 className={`text-sm font-bold ${editId === exercise._id ? 'text-indigo-900 dark:text-indigo-300' : 'text-gray-900 dark:text-gray-100'}`}>{exercise.name}</h3>
+                  <span className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest">
+                    {exercise.muscleGroup}
+                  </span>
+                </div>
               </div>
-              <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+              <div className="flex gap-2">
                 <button
                     onClick={() => startEdit(exercise)}
-                    className="text-gray-400 dark:text-gray-500 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-950/30 p-2 rounded-lg transition-colors"
+                    className={`p-2 rounded-lg transition-all ${
+                        editId === exercise._id 
+                        ? 'bg-indigo-600 text-white shadow-md' 
+                        : 'bg-white dark:bg-dark-card text-gray-400 dark:text-gray-500 hover:text-indigo-600 dark:hover:text-teal-accent border border-gray-100 dark:border-gray-800'
+                    }`}
                     title="Edit"
                 >
-                    <Pencil className="h-4 w-4" />
+                    <Pencil className="h-3.5 w-3.5" />
                 </button>
                 <button
                     onClick={() => deleteExercise(exercise._id)}
-                    className="text-gray-400 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/30 p-2 rounded-lg transition-colors"
+                    className="p-2 rounded-lg bg-white dark:bg-dark-card text-gray-400 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-400 border border-gray-100 dark:border-gray-800 transition-all"
                     title="Delete"
                 >
-                    <Trash2 className="h-4 w-4" />
+                    <Trash2 className="h-3.5 w-3.5" />
                 </button>
               </div>
             </div>

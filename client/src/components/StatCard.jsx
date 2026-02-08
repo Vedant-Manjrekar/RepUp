@@ -2,15 +2,15 @@ import { ArrowUpRight, ArrowDownRight } from 'lucide-react';
 
 const StatCard = ({ icon: Icon, label, value, trend, trendValue, color = 'indigo' }) => {
   const colorClasses = {
-    indigo: 'bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400',
-    emerald: 'bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400', 
-    blue: 'bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400',
-    purple: 'bg-purple-50 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400',
-    orange: 'bg-orange-50 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400',
+    indigo: 'bg-indigo-50 dark:bg-dark-teal/10 text-indigo-600 dark:text-teal-accent',
+    emerald: 'bg-emerald-50 dark:bg-dark-teal/10 text-emerald-600 dark:text-teal-accent', 
+    blue: 'bg-blue-50 dark:bg-dark-teal/10 text-blue-600 dark:text-teal-accent',
+    purple: 'bg-purple-50 dark:bg-dark-teal/10 text-purple-600 dark:text-teal-accent',
+    orange: 'bg-orange-50 dark:bg-dark-teal/10 text-orange-600 dark:text-teal-accent',
   };
 
   return (
-    <div className="bg-white dark:bg-gray-900 p-4 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 flex flex-col justify-between h-[140px] transition-colors duration-300">
+    <div className="bg-white dark:bg-dark-card p-4 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 flex flex-col justify-between h-[140px] group hover:border-indigo-200 dark:hover:border-teal-accent/50 hover:shadow-md transition-all duration-300">
       <div className="flex justify-between items-start">
         <div className={`p-2 rounded-xl ${colorClasses[color] || colorClasses.indigo}`}>
           <Icon className="h-5 w-5" />

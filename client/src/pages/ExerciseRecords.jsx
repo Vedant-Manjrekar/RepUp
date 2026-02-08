@@ -111,14 +111,14 @@ const ExerciseRecords = () => {
   const activeGroups = Object.keys(processedRecords).sort();
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 pb-24 sm:pb-8 transition-colors duration-300">
+    <div className="min-h-screen bg-gray-50 dark:bg-dark-bg pb-24 sm:pb-8 transition-colors duration-300">
       <div className="max-w-7xl mx-auto pt-6 px-3 sm:px-6">
         <div className="flex justify-between items-center mb-6">
           <div>
             <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Exercise Records</h1>
             <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Your personal bests and latest results</p>
           </div>
-          <div className="h-10 w-10 rounded-xl bg-white dark:bg-gray-900 shadow-sm border border-gray-100 dark:border-gray-800 flex items-center justify-center">
+          <div className="h-10 w-10 rounded-xl bg-white dark:bg-dark-card shadow-sm border border-gray-100 dark:border-gray-800 flex items-center justify-center">
             <Trophy className="h-5 w-5 text-amber-500" />
           </div>
         </div>
@@ -131,8 +131,8 @@ const ExerciseRecords = () => {
               onClick={() => setSelectedMuscle(group)}
               className={`whitespace-nowrap px-4 py-2 rounded-full text-xs font-bold transition-all border ${
                 selectedMuscle === group
-                  ? 'bg-indigo-600 text-white border-indigo-600 shadow-md transform scale-105'
-                  : 'bg-white dark:bg-gray-900 text-gray-500 dark:text-gray-400 border-gray-100 dark:border-gray-800 hover:border-indigo-200 dark:hover:border-indigo-800'
+                  ? 'bg-indigo-600 dark:bg-teal-accent text-white border-indigo-600 dark:border-teal-accent shadow-md transform scale-105'
+                  : 'bg-white dark:bg-dark-card text-gray-500 dark:text-gray-400 border-gray-100 dark:border-gray-800 hover:border-indigo-200 dark:hover:border-teal-accent'
               }`}
             >
               {group}
@@ -141,7 +141,7 @@ const ExerciseRecords = () => {
         </div>
 
         {activeGroups.length === 0 ? (
-          <div className="bg-white dark:bg-gray-900 rounded-[2rem] p-12 text-center border border-dashed border-gray-200 dark:border-gray-800 shadow-sm mt-4">
+          <div className="bg-white dark:bg-dark-card rounded-[2rem] p-12 text-center border border-dashed border-gray-200 dark:border-gray-800 shadow-sm mt-4">
              <Dumbbell className="h-12 w-12 text-gray-200 dark:text-gray-800 mx-auto mb-4" />
              <p className="text-gray-500 dark:text-gray-400 font-medium">No exercises found.</p>
              <p className="text-xs text-gray-400 dark:text-gray-500 mt-1">Add exercises to the database to see them here.</p>
@@ -151,9 +151,9 @@ const ExerciseRecords = () => {
             {activeGroups.map(group => (
               <div key={group} className="space-y-5">
                 <div className="flex items-center gap-2 px-1">
-                  <div className="h-1.5 w-1.5 rounded-full bg-indigo-500"></div>
+                  <div className="h-1.5 w-1.5 rounded-full bg-indigo-500 dark:bg-teal-accent"></div>
                   <h2 className="text-[11px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-[0.2em]">{group}</h2>
-                  <span className="text-[10px] font-bold text-indigo-400 ml-auto bg-indigo-50/50 dark:bg-indigo-900/30 px-2.5 py-1 rounded-lg">
+                  <span className="text-[10px] font-bold text-indigo-400 dark:text-teal-accent ml-auto bg-indigo-50/50 dark:bg-dark-teal/10 px-2.5 py-1 rounded-lg">
                     {processedRecords[group].length} Exercises
                   </span>
                 </div>
@@ -162,7 +162,7 @@ const ExerciseRecords = () => {
                   {processedRecords[group].map(exercise => (
                     <div 
                       key={exercise._id} 
-                      className="bg-white dark:bg-gray-900 rounded-[1.5rem] p-5 shadow-sm border border-gray-100 dark:border-gray-800 flex flex-col sm:flex-row sm:items-center justify-between group hover:border-indigo-200 dark:hover:border-indigo-800 hover:shadow-md transition-all duration-300 gap-4"
+                      className="bg-white dark:bg-dark-card rounded-[1.5rem] p-5 shadow-sm border border-gray-100 dark:border-gray-800 flex flex-col sm:flex-row sm:items-center justify-between group hover:border-indigo-200 dark:hover:border-teal-accent hover:shadow-md transition-all duration-300 gap-4"
                     >
                       <div className="flex items-center gap-4">
                         <div className="h-12 w-12 min-w-[48px] rounded-2xl bg-gray-50 dark:bg-gray-800 flex items-center justify-center text-gray-400 dark:text-gray-500 group-hover:bg-indigo-50 dark:group-hover:bg-indigo-900/30 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
