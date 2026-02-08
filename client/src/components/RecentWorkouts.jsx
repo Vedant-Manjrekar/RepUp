@@ -163,9 +163,9 @@ const RecentWorkouts = ({ workouts, setWorkouts }) => {
         </table>
 
          {/* Mobile Card View (Visible ONLY on Mobile) */}
-         <div className="sm:hidden flex flex-col divide-y divide-gray-50 dark:divide-gray-800">
+         <div className="sm:hidden flex flex-col divide-y divide-gray-100 dark:divide-gray-800">
             {workouts.map((workout) => (
-              <div key={workout._id} className="p-4 bg-white dark:bg-dark-card hover:bg-gray-50 dark:hover:bg-dark-bg transition-colors">
+              <div key={workout._id} className="p-4 bg-white dark:bg-dark-card border-b border-gray-100 dark:border-gray-800/60 hover:bg-gray-50 dark:hover:bg-dark-bg transition-colors">
                   {editingId === workout._id ? (
                       <div className="space-y-3">
                           <div className="flex justify-between items-center">
