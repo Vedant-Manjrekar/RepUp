@@ -53,17 +53,17 @@ const ActivityGraph = ({ workouts, exercises, selectedExerciseId, onSelectExerci
       const isPR = data.weight === stats.pr;
 
       return (
-        <div className="bg-white p-3 rounded-lg shadow-xl border border-indigo-50 min-w-[140px]">
-          <p className="text-[10px] font-bold text-indigo-600 mb-0.5 uppercase tracking-wider">{selectedExerciseName}</p>
-          <p className="text-xs font-semibold text-gray-500 mb-2">{new Date(label).toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' })}</p>
+        <div className="bg-white dark:bg-gray-900 p-3 rounded-lg shadow-xl border border-indigo-50 dark:border-gray-800 min-w-[140px] transition-colors duration-300">
+          <p className="text-[10px] font-bold text-indigo-600 dark:text-indigo-400 mb-0.5 uppercase tracking-wider">{selectedExerciseName}</p>
+          <p className="text-xs font-semibold text-gray-500 dark:text-gray-400 mb-2">{new Date(label).toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' })}</p>
           <div className="flex items-center gap-2 mb-2">
-             <div className="w-2 h-2 rounded-full bg-indigo-600"></div>
-             <p className="text-lg font-bold text-indigo-900">{data.weight} <span className="text-xs font-normal text-gray-500">kg</span></p>
+             <div className="w-2 h-2 rounded-full bg-indigo-600 dark:bg-indigo-400"></div>
+             <p className="text-lg font-bold text-indigo-900 dark:text-gray-100">{data.weight} <span className="text-xs font-normal text-gray-500 dark:text-gray-400">kg</span></p>
              {isPR && <Trophy className="h-3 w-3 text-amber-500 ml-1" />}
           </div>
-          <div className="text-xs text-gray-500 flex gap-3 pl-3 border-t border-gray-100 pt-2">
-             <span><span className="font-semibold text-gray-700">{data.sets}</span> sets</span>
-             <span><span className="font-semibold text-gray-700">{data.reps}</span> reps</span>
+          <div className="text-xs text-gray-500 dark:text-gray-400 flex gap-3 pl-3 border-t border-gray-100 dark:border-gray-800 pt-2">
+             <span><span className="font-semibold text-gray-700 dark:text-gray-300">{data.sets}</span> sets</span>
+             <span><span className="font-semibold text-gray-700 dark:text-gray-300">{data.reps}</span> reps</span>
           </div>
         </div>
       );
@@ -75,18 +75,18 @@ const ActivityGraph = ({ workouts, exercises, selectedExerciseId, onSelectExerci
     <div className="w-full">
        <div className="flex justify-between items-start mb-6">
            <div>
-               <h2 className="text-sm font-bold text-gray-900 uppercase tracking-wide">Performance</h2>
+               <h2 className="text-sm font-bold text-gray-900 dark:text-gray-100 uppercase tracking-wide">Performance</h2>
                <div className="flex items-center gap-4 mt-2">
                  <div>
-                    <p className="text-xl font-bold text-gray-900">{stats.latest > 0 ? `${stats.latest}kg` : '-'}</p>
-                    <p className="text-[10px] text-gray-400 font-medium">Latest</p>
+                    <p className="text-xl font-bold text-gray-900 dark:text-gray-100">{stats.latest > 0 ? `${stats.latest}kg` : '-'}</p>
+                    <p className="text-[10px] text-gray-400 dark:text-gray-500 font-medium">Latest</p>
                  </div>
-                 <div className="w-px h-8 bg-gray-100"></div>
+                 <div className="w-px h-8 bg-gray-100 dark:bg-gray-800"></div>
                  <div>
                     <div className="flex items-center gap-1">
-                        <p className="text-xl font-bold text-indigo-600">{stats.pr > 0 ? `${stats.pr}kg` : '-'}</p>
+                        <p className="text-xl font-bold text-indigo-600 dark:text-indigo-400">{stats.pr > 0 ? `${stats.pr}kg` : '-'}</p>
                     </div>
-                    <p className="text-[10px] text-gray-400 font-medium">Personal Best</p>
+                    <p className="text-[10px] text-gray-400 dark:text-gray-500 font-medium">Personal Best</p>
                  </div>
                </div>
            </div>
@@ -95,16 +95,16 @@ const ActivityGraph = ({ workouts, exercises, selectedExerciseId, onSelectExerci
               <select
                 value={selectedExerciseId}
                 onChange={(e) => onSelectExercise(e.target.value)}
-                className="appearance-none bg-white border border-gray-100 text-gray-500 hover:text-gray-900 hover:border-gray-200 text-[10px] font-bold py-1 pl-2 pr-5 rounded-lg cursor-pointer focus:outline-none transition-all max-w-[140px] shadow-sm"
+                className="appearance-none bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 hover:border-gray-200 dark:hover:border-gray-700 text-[10px] font-bold py-1 pl-2 pr-5 rounded-lg cursor-pointer focus:outline-none transition-all max-w-[140px] shadow-sm"
               >
-                <option value="">Select Exercise</option>
+                <option value="" className="dark:bg-gray-900">Select Exercise</option>
                 {exercises.map((ex) => (
-                  <option key={ex._id} value={ex._id}>
+                  <option key={ex._id} value={ex._id} className="dark:bg-gray-900">
                     {ex.name}
                   </option>
                 ))}
               </select>
-              <ChevronDown className="absolute right-1.5 top-1/2 -translate-y-1/2 h-3 w-3 text-gray-400 pointer-events-none" />
+              <ChevronDown className="absolute right-1.5 top-1/2 -translate-y-1/2 h-3 w-3 text-gray-400 dark:text-gray-500 pointer-events-none" />
            </div>
        </div>
 
@@ -118,7 +118,7 @@ const ActivityGraph = ({ workouts, exercises, selectedExerciseId, onSelectExerci
                   <stop offset="95%" stopColor="#4f46e5" stopOpacity={0}/>
                 </linearGradient>
               </defs>
-              <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f3f4f6" />
+              <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="currentColor" className="text-gray-100 dark:text-gray-800" />
               <XAxis 
                 dataKey="timestamp" 
                 type="number"
@@ -149,7 +149,7 @@ const ActivityGraph = ({ workouts, exercises, selectedExerciseId, onSelectExerci
             </AreaChart>
           </ResponsiveContainer>
         ) : (
-          <div className="flex flex-col items-center justify-center h-full text-gray-400">
+          <div className="flex flex-col items-center justify-center h-full text-gray-400 dark:text-gray-600">
             <BarChart3 className="h-10 w-10 mb-2 opacity-10" />
             <p className="text-xs">Select exercise to view progress</p>
           </div>

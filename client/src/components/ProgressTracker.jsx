@@ -65,25 +65,25 @@ const ProgressTracker = ({ exercises, onWorkoutAdded, workouts = [] }) => {
   };
 
   return (
-    <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 h-full">
+    <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 p-6 h-full transition-colors duration-300">
       <div className="flex items-center gap-2 mb-6">
-        <div className="bg-emerald-100 p-2 rounded-lg">
-          <Activity className="h-5 w-5 text-emerald-600" />
+        <div className="bg-emerald-100 dark:bg-emerald-900/30 p-2 rounded-lg">
+          <Activity className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
         </div>
-        <h2 className="text-lg font-bold text-gray-800">Log Workout</h2>
+        <h2 className="text-lg font-bold text-gray-800 dark:text-gray-100">Log Workout</h2>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider ml-1">Exercise</label>
+          <label className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider ml-1">Exercise</label>
           <select
             value={selectedExercise}
             onChange={(e) => setSelectedExercise(e.target.value)}
-            className="w-full mt-1 px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition-all cursor-pointer"
+            className="w-full mt-1 px-4 py-2.5 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition-all cursor-pointer dark:text-gray-100"
           >
-            <option value="">Select Exercise</option>
+            <option value="" className="dark:bg-gray-800">Select Exercise</option>
             {exercises.map((ex) => (
-              <option key={ex._id} value={ex._id}>
+              <option key={ex._id} value={ex._id} className="dark:bg-gray-800">
                 {ex.name}
               </option>
             ))}
@@ -92,17 +92,17 @@ const ProgressTracker = ({ exercises, onWorkoutAdded, workouts = [] }) => {
           {/* PR Stats Badge */}
           {prStats && (
             <div className="mt-3 grid grid-cols-3 gap-2">
-              <div className="bg-amber-50 border border-amber-100 rounded-lg p-2 text-center">
-                <div className="text-[10px] uppercase text-amber-600 font-bold tracking-wider">Max Weight</div>
-                <div className="text-sm font-bold text-amber-700">{prStats.maxWeight} <span className="text-[10px] font-normal">kg</span></div>
+              <div className="bg-amber-50 dark:bg-amber-900/20 border border-amber-100 dark:border-amber-800/50 rounded-lg p-2 text-center">
+                <div className="text-[10px] uppercase text-amber-600 dark:text-amber-400 font-bold tracking-wider">Max Weight</div>
+                <div className="text-sm font-bold text-amber-700 dark:text-amber-300">{prStats.maxWeight} <span className="text-[10px] font-normal">kg</span></div>
               </div>
-               <div className="bg-amber-50 border border-amber-100 rounded-lg p-2 text-center">
-                <div className="text-[10px] uppercase text-amber-600 font-bold tracking-wider">Max Reps</div>
-                <div className="text-sm font-bold text-amber-700">{prStats.maxReps}</div>
+               <div className="bg-amber-50 dark:bg-amber-900/20 border border-amber-100 dark:border-amber-800/50 rounded-lg p-2 text-center">
+                <div className="text-[10px] uppercase text-amber-600 dark:text-amber-400 font-bold tracking-wider">Max Reps</div>
+                <div className="text-sm font-bold text-amber-700 dark:text-amber-300">{prStats.maxReps}</div>
               </div>
-               <div className="bg-amber-50 border border-amber-100 rounded-lg p-2 text-center">
-                <div className="text-[10px] uppercase text-amber-600 font-bold tracking-wider">Max Sets</div>
-                <div className="text-sm font-bold text-amber-700">{prStats.maxSets}</div>
+               <div className="bg-amber-50 dark:bg-amber-900/20 border border-amber-100 dark:border-amber-800/50 rounded-lg p-2 text-center">
+                <div className="text-[10px] uppercase text-amber-600 dark:text-amber-400 font-bold tracking-wider">Max Sets</div>
+                <div className="text-sm font-bold text-amber-700 dark:text-amber-300">{prStats.maxSets}</div>
               </div>
             </div>
           )}
@@ -110,46 +110,46 @@ const ProgressTracker = ({ exercises, onWorkoutAdded, workouts = [] }) => {
 
         <div className="grid grid-cols-3 gap-4">
           <div>
-            <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider ml-1">Weight (kg)</label>
+            <label className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider ml-1">Weight (kg)</label>
             <input
               type="number"
               value={weight}
               onChange={(e) => setWeight(e.target.value)}
-              className="w-full mt-1 px-4 py-2 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition-all placeholder:text-gray-400"
+              className="w-full mt-1 px-4 py-2 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition-all placeholder:text-gray-400 dark:text-gray-100"
               placeholder="0"
             />
           </div>
           <div>
-            <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider ml-1">Sets</label>
+            <label className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider ml-1">Sets</label>
             <input
               type="number"
               value={sets}
               onChange={(e) => setSets(e.target.value)}
-              className="w-full mt-1 px-4 py-2 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition-all placeholder:text-gray-400"
+              className="w-full mt-1 px-4 py-2 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition-all placeholder:text-gray-400 dark:text-gray-100"
               placeholder="0"
             />
           </div>
           <div>
-            <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider ml-1">Reps</label>
+            <label className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider ml-1">Reps</label>
             <input
               type="number"
               value={reps}
               onChange={(e) => setReps(e.target.value)}
-              className="w-full mt-1 px-4 py-2 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition-all placeholder:text-gray-400"
+              className="w-full mt-1 px-4 py-2 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition-all placeholder:text-gray-400 dark:text-gray-100"
               placeholder="0"
             />
           </div>
         </div>
 
         <div>
-          <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider ml-1">Date</label>
+          <label className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider ml-1">Date</label>
           <div className="relative">
-            <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 h-4 w-4 pointer-events-none" />
+            <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500 h-4 w-4 pointer-events-none" />
             <input
               type="date"
               value={date}
               onChange={(e) => setDate(e.target.value)}
-              className="w-full mt-1 pl-10 pr-4 py-2 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition-all text-gray-600"
+              className="w-full mt-1 pl-10 pr-4 py-2 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition-all text-gray-600 dark:text-gray-200"
             />
           </div>
         </div>

@@ -56,11 +56,11 @@ const Dashboard = () => {
   return (
     <div className="space-y-6 pb-8">
       {/* Mobile Toggle: Log vs Manage */}
-      <div className="lg:hidden flex bg-gray-100 p-1 rounded-xl mb-4">
+      <div className="lg:hidden flex bg-gray-100 dark:bg-gray-800 p-1 rounded-xl mb-4 transition-colors duration-300">
         <button 
           onClick={() => setMobileViewMode('log')}
           className={`flex-1 py-2 text-sm font-medium rounded-lg transition-all ${
-             mobileViewMode === 'log' ? 'bg-white shadow text-indigo-600' : 'text-gray-500'
+             mobileViewMode === 'log' ? 'bg-white dark:bg-gray-700 shadow dark:shadow-gray-900 text-indigo-600 dark:text-indigo-400' : 'text-gray-500 dark:text-gray-400'
           }`}
         >
           Log Workout
@@ -68,7 +68,7 @@ const Dashboard = () => {
         <button 
           onClick={() => setMobileViewMode('manage')}
           className={`flex-1 py-2 text-sm font-medium rounded-lg transition-all ${
-             mobileViewMode === 'manage' ? 'bg-white shadow text-indigo-600' : 'text-gray-500'
+             mobileViewMode === 'manage' ? 'bg-white dark:bg-gray-700 shadow dark:shadow-gray-900 text-indigo-600 dark:text-indigo-400' : 'text-gray-500 dark:text-gray-400'
           }`}
         >
           Manage Exercises
@@ -76,7 +76,7 @@ const Dashboard = () => {
       </div>
       
       {/* Header with Analytics Link */}
-      <div className="flex justify-between items-center bg-indigo-600 rounded-2xl p-6 text-white shadow-lg shadow-indigo-200">
+      <div className="flex justify-between items-center bg-indigo-600 rounded-2xl p-6 text-white shadow-lg shadow-indigo-200 dark:shadow-indigo-950/20 transition-all duration-300">
          <div>
              <h1 className="text-2xl font-bold">Welcome back!</h1>
              <p className="text-indigo-100 opacity-90">Track your progress and stay consistent.</p>

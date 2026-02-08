@@ -158,23 +158,23 @@ const Analytics = () => {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center h-screen bg-gray-50">
+      <div className="flex items-center justify-center h-screen bg-gray-50 dark:bg-gray-950 transition-colors duration-300">
         <Loader2 className="h-8 w-8 animate-spin text-indigo-600" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 pb-20 sm:pb-8">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 pb-20 sm:pb-8 transition-colors duration-300">
        <div className="max-w-7xl mx-auto px-4 pt-6 pb-4">
           <div className="flex justify-between items-center mb-6">
              <div>
-                <h1 className="text-2xl font-bold text-gray-900">Analytics</h1>
-                <p className="text-xs text-gray-500 mt-1">Track your progress and performance</p>
+                <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Analytics</h1>
+                <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Track your progress and performance</p>
              </div>
              <div className="flex gap-2">
-                <div className="h-10 w-10 rounded-xl bg-white shadow-sm border border-gray-100 flex items-center justify-center">
-                    <User className="h-5 w-5 text-gray-600" />
+                <div className="h-10 w-10 rounded-xl bg-white dark:bg-gray-900 shadow-sm border border-gray-100 dark:border-gray-800 flex items-center justify-center">
+                    <User className="h-5 w-5 text-gray-600 dark:text-gray-400" />
                 </div>
              </div>
           </div>
@@ -182,96 +182,96 @@ const Analytics = () => {
           {/* Controls Bar */}
           <div className="flex items-center justify-between gap-2 mb-6">
              {/* Muscle Filter */}
-             <div className="bg-white p-1 rounded-xl shadow-sm border border-gray-100 flex items-center pr-2">
-                <div className="h-7 w-7 rounded-lg bg-indigo-50 flex items-center justify-center mr-2">
-                   <Target className="h-3.5 w-3.5 text-indigo-600" />
+             <div className="bg-white dark:bg-gray-900 p-1 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 flex items-center pr-2">
+                <div className="h-7 w-7 rounded-lg bg-indigo-50 dark:bg-indigo-900/30 flex items-center justify-center mr-2">
+                   <Target className="h-3.5 w-3.5 text-indigo-600 dark:text-indigo-400" />
                 </div>
                 <div className="relative">
                    <select
                      value={selectedMuscle}
                      onChange={(e) => handleMuscleChange(e.target.value)}
-                     className="appearance-none bg-transparent text-[11px] font-bold text-gray-900 py-1 pl-1 pr-5 cursor-pointer focus:outline-none"
+                     className="appearance-none bg-transparent text-[11px] font-bold text-gray-900 dark:text-gray-100 py-1 pl-1 pr-5 cursor-pointer focus:outline-none"
                    >
                      {PREDEFINED_MUSCLE_GROUPS.map(muscle => (
-                       <option key={muscle} value={muscle}>{muscle}</option>
+                       <option key={muscle} value={muscle} className="dark:bg-gray-900">{muscle}</option>
                      ))}
                    </select>
-                   <ChevronDown className="absolute right-0 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-gray-400 pointer-events-none" />
+                   <ChevronDown className="absolute right-0 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-gray-400 dark:text-gray-500 pointer-events-none" />
                 </div>
              </div>
 
              {/* Timeframe Selector */}
-             <div className="bg-white p-1 rounded-xl shadow-sm border border-gray-100 flex">
+             <div className="bg-white dark:bg-gray-900 p-1 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 flex">
                 {['week', 'month', 'year', 'all'].map((tf) => (
                    <button
                    key={tf}
                    onClick={() => setTimeframe(tf)}
                    className={`px-3 py-1.5 text-[9px] font-bold rounded-lg transition-all capitalize ${
                       timeframe === tf
-                         ? 'bg-gray-900 text-white shadow-md'
-                         : 'text-gray-500 hover:text-gray-900 hover:bg-gray-50'
+                         ? 'bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 shadow-md'
+                         : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800'
                    }`}
                    >
                    {tf}
                    </button>
-                ))}
-             </div>
-          </div>
+                 ))}
+              </div>
+           </div>
 
-          {/* Stats Grid */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-             <StatCard 
-               icon={Dumbbell} 
-               label="Workouts" 
-               value={stats.totalWorkouts} 
-               color="indigo" 
-               trend="up" 
-               trendValue={timeframe === 'all' ? '' : `${timeframe}`} 
-             />
-             <StatCard 
-               icon={Scale} 
-               label="Volume" 
-               value={`${(stats.totalVolume / 1000).toFixed(1)}k`} 
-               color="emerald" 
-             />
-             <StatCard 
-               icon={Layers} 
-               label="Sets" 
-               value={stats.totalSets} 
-               color="blue" 
-             />
-             <StatCard 
-               icon={stats.trend === 'up' ? TrendingUp : TrendingDown} 
-               label="Strength" 
-               value={stats.strengthStatus} 
-               color={stats.trend === 'up' ? 'emerald' : 'orange'} 
-               trend={stats.trend}
-             />
-          </div>
+           {/* Stats Grid */}
+           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+              <StatCard 
+                icon={Dumbbell} 
+                label="Workouts" 
+                value={stats.totalWorkouts} 
+                color="indigo" 
+                trend="up" 
+                trendValue={timeframe === 'all' ? '' : `${timeframe}`} 
+              />
+              <StatCard 
+                icon={Scale} 
+                label="Volume" 
+                value={`${(stats.totalVolume / 1000).toFixed(1)}k`} 
+                color="emerald" 
+              />
+              <StatCard 
+                icon={Layers} 
+                label="Sets" 
+                value={stats.totalSets} 
+                color="blue" 
+              />
+              <StatCard 
+                icon={stats.trend === 'up' ? TrendingUp : TrendingDown} 
+                label="Strength" 
+                value={stats.strengthStatus} 
+                color={stats.trend === 'up' ? 'emerald' : 'orange'} 
+                trend={stats.trend}
+              />
+           </div>
 
-          {/* Charts Section */}
-          <div className="space-y-6">
+           {/* Charts Section */}
+           <div className="space-y-6">
 
-             <div className="bg-white rounded-[2rem] shadow-sm border border-gray-100 p-6">
-                <MuscleProgressChart 
-                    workouts={filteredWorkouts} 
-                    selectedMuscle={selectedMuscle}
-                />
-             </div>
+              <div className="bg-white dark:bg-gray-900 rounded-[2rem] shadow-sm border border-gray-100 dark:border-gray-800 p-6 transition-colors duration-300">
+                 <MuscleProgressChart 
+                     workouts={filteredWorkouts} 
+                     selectedMuscle={selectedMuscle}
+                 />
+              </div>
 
-            
-             <div className="bg-white rounded-[2rem] shadow-sm border border-gray-100 p-6">
-                <ActivityGraph 
-                    workouts={filteredWorkouts} 
-                    exercises={filteredExercises} 
-                    selectedExerciseId={selectedExerciseId}
-                    onSelectExercise={setSelectedExerciseId}
-                />
-             </div>
+             
+              <div className="bg-white dark:bg-gray-900 rounded-[2rem] shadow-sm border border-gray-100 dark:border-gray-800 p-6 transition-colors duration-300">
+                 <ActivityGraph 
+                     workouts={filteredWorkouts} 
+                     exercises={filteredExercises} 
+                     selectedExerciseId={selectedExerciseId}
+                     onSelectExercise={setSelectedExerciseId}
+                 />
+              </div>
 
-          </div>
-       </div>
-    </div>
+           </div>
+        </div>
+     </div>
   );
 };
 
