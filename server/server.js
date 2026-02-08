@@ -39,7 +39,7 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-app.options('*', cors(corsOptions)); // Handle all preflight requests
+// app.options('*', cors(corsOptions)); // Handle all preflight requests
 
 // ✅ 2. Body parser
 app.use(express.json());
