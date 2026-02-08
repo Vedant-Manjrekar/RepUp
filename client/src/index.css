@@ -24,6 +24,29 @@
   background-color: var(--color-dark-teal);
 }
 
+
 @utility text-teal-accent {
   color: var(--color-dark-teal);
+}
+
+/* Remove focus outline from Recharts graphs */
+.recharts-wrapper:focus,
+.recharts-surface:focus {
+  outline: none;
+}
+
+.recharts-wrapper,
+.recharts-surface {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.recharts-wrapper:focus,
+.recharts-surface:focus {
+  outline: none;
+}
+
+.recharts-wrapper:focus,
+.recharts-surface:focus,
+.recharts-wrapper svg:focus {
+  outline: none !important;
 }

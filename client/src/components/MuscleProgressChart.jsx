@@ -128,10 +128,11 @@ const MuscleProgressChart = ({ workouts, selectedMuscle }) => {
 
       <div style={{ width: '100%', height: 250 }}>
         {chartData.data && chartData.data.length > 0 ? (
-          <ResponsiveContainer width="100%" height="100%">
-            <AreaChart data={chartData.data} margin={{ top: 10, right: 0, bottom: 0, left: -20 }}>
+          
+          <ResponsiveContainer width="100%" height="100%" className="outline-none focus:outline-none" tabIndex={-1}>
+            <AreaChart data={chartData.data} margin={{ top: 10, right: 0, bottom: 0, left: -20 }} accessibilityLayer={false} style={{ outline: 'none' }}>
                <defs>
-                <linearGradient id="colorVolume" x1="0" y1="0" x2="0" y2="1">
+                <linearGradient id="colorVolume" x1="0" y1="0" x2="0" y2="1"> 
                   <stop offset="5%" stopColor="#2ba09d" stopOpacity={0.8}/>
                   <stop offset="95%" stopColor="#2ba09d" stopOpacity={0}/>
                 </linearGradient>

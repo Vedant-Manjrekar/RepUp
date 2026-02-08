@@ -1,7 +1,8 @@
 import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
 import { LogOut, Dumbbell, Sun, Moon } from 'lucide-react';
-import logo from '../assets/repup1.png';
+import logo from '../assets/repup2.png';
+import logoDark from '../assets/repup3.png';
 
 const Header = () => {
   const { user, logout } = useAuth();
@@ -11,7 +12,7 @@ const Header = () => {
     <header className="bg-white/80 dark:bg-dark-bg/80 backdrop-blur-md border-b border-gray-100 dark:border-gray-800 sticky top-0 z-50 transition-all duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <div className="flex items-center">
-            <img src={logo} alt="" className='h-12 w-12 ml-2' />
+            <img src={theme === 'light' ? logo : logoDark} alt="" className='h-12 w-12 ml-2' />
             <h1 className="text-xl font-bold text-gray-900 dark:text-teal-accent">
               RepUp
             </h1>
