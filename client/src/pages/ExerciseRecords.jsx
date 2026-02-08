@@ -131,7 +131,7 @@ const ExerciseRecords = () => {
               onClick={() => setSelectedMuscle(group)}
               className={`whitespace-nowrap px-4 py-2 rounded-full text-xs font-bold transition-all border ${
                 selectedMuscle === group
-                  ? 'bg-indigo-600 dark:bg-teal-accent text-white border-indigo-600 dark:border-teal-accent shadow-md transform scale-105'
+                  ? 'bg-indigo-600 dark:bg-teal-accent text-white border-teal-200 dark:border-teal-accent shadow-md transform scale-105'
                   : 'bg-white dark:bg-dark-card text-gray-500 dark:text-gray-400 border-gray-100 dark:border-gray-800 hover:border-indigo-200 dark:hover:border-teal-accent'
               }`}
             >
