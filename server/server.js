@@ -12,34 +12,34 @@ const PORT = process.env.PORT || 5000;
    MIDDLEWARE (ORDER MATTERS)
    ========================= */
 
-// ✅ 1. CORS MUST BE FIRST
+// ✅ 1. CORS Configuration
+const allowedOrigins = [
+  'http://localhost:5173',
+  'http://localhost:5174',
+  'http://127.0.0.1:5173',
+  'https://rep-up-delta.vercel.app'
+];
+
 const corsOptions = {
-  origin: (origin, callback) => {
-    // Allow requests with no origin (like mobile apps or curl requests)
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps)
     if (!origin) return callback(null, true);
     
-    const allowedOrigins = [
-      'http://localhost:5173',
-      'http://localhost:5174',
-      'http://127.0.0.1:5173',
-      'https://rep-up-delta.vercel.app'
-    ];
-
-    if (allowedOrigins.includes(origin) || origin.startsWith('http://localhost') || origin.startsWith('http://127.0.0.1')) {
-      return callback(null, true);
+    if (allowedOrigins.indexOf(origin) !== -1 || origin.startsWith('http://localhost') || origin.startsWith('http://127.0.0.1')) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
     }
-    
-    callback(new Error('Not allowed by CORS'));
   },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept'],
+  preflightContinue: false,
+  optionsSuccessStatus: 204
 };
 
 app.use(cors(corsOptions));
-
-// Explicitly handle OPTIONS requests for all routes using the SAME options
-app.options(/.*/, cors(corsOptions)); // . matches any char, * means 0 or more times (RegExp)
+app.options('*', cors(corsOptions)); // Handle all preflight requests
 
 // ✅ 2. Body parser
 app.use(express.json());
