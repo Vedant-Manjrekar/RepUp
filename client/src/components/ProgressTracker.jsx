@@ -4,6 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import { Activity, Calendar, Save, Loader2 } from 'lucide-react';
 
 const ProgressTracker = ({ exercises, onWorkoutAdded, workouts = [] }) => {
+  const [selectedMuscleGroup, setSelectedMuscleGroup] = useState('');
   const [selectedExercise, setSelectedExercise] = useState('');
   const [weight, setWeight] = useState('');
   const [reps, setReps] = useState('');
@@ -11,6 +12,18 @@ const ProgressTracker = ({ exercises, onWorkoutAdded, workouts = [] }) => {
   const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
   const [loading, setLoading] = useState(false);
   const { user } = useAuth();
+  
+  // Get unique muscle groups from exercises
+  const muscleGroups = useMemo(() => {
+    const groups = new Set(exercises.map(ex => ex.muscleGroup));
+    return Array.from(groups).sort();
+  }, [exercises]);
+
+  // Filter exercises based on selected muscle group
+  const filteredExercises = useMemo(() => {
+    if (!selectedMuscleGroup) return exercises;
+    return exercises.filter(ex => ex.muscleGroup === selectedMuscleGroup);
+  }, [exercises, selectedMuscleGroup]);
 
   // Calculate PRs
   const prStats = useMemo(() => {
@@ -74,20 +87,42 @@ const ProgressTracker = ({ exercises, onWorkoutAdded, workouts = [] }) => {
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
-          <label className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider ml-1">Exercise</label>
-          <select
-            value={selectedExercise}
-            onChange={(e) => setSelectedExercise(e.target.value)}
-            className="w-full mt-1 px-4 py-2.5 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition-all cursor-pointer dark:text-gray-100"
-          >
-            <option value="" className="dark:bg-gray-800">Select Exercise</option>
-            {exercises.map((ex) => (
-              <option key={ex._id} value={ex._id} className="dark:bg-gray-800">
-                {ex.name}
-              </option>
-            ))}
-          </select>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider ml-1">Muscle Group</label>
+            <select
+              value={selectedMuscleGroup}
+              onChange={(e) => {
+                setSelectedMuscleGroup(e.target.value);
+                setSelectedExercise(''); // Reset exercise when muscle group changes
+              }}
+              className="w-full mt-1 px-4 py-2.5 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition-all cursor-pointer dark:text-gray-100"
+            >
+              <option value="" className="dark:bg-gray-800">All Muscle Groups</option>
+              {muscleGroups.map((group) => (
+                <option key={group} value={group} className="dark:bg-gray-800">
+                  {group}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div>
+            <label className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider ml-1">Exercise</label>
+            <select
+              value={selectedExercise}
+              onChange={(e) => setSelectedExercise(e.target.value)}
+              className="w-full mt-1 px-4 py-2.5 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition-all cursor-pointer dark:text-gray-100"
+            >
+              <option value="" className="dark:bg-gray-800">Select Exercise</option>
+              {filteredExercises.map((ex) => (
+                <option key={ex._id} value={ex._id} className="dark:bg-gray-800">
+                  {ex.name}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
           
           {/* PR Stats Badge */}
           {prStats && (
@@ -106,7 +141,6 @@ const ProgressTracker = ({ exercises, onWorkoutAdded, workouts = [] }) => {
               </div>
             </div>
           )}
-        </div>
 
         <div className="grid grid-cols-3 gap-4">
           <div>
