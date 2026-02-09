@@ -37,8 +37,13 @@ const ProgressTracker = ({ exercises, onWorkoutAdded, workouts = [] }) => {
     if (exerciseWorkouts.length === 0) return null;
 
     const maxWeight = Math.max(...exerciseWorkouts.map(w => w.weight));
-    const maxReps = Math.max(...exerciseWorkouts.map(w => w.reps));
-    const maxSets = Math.max(...exerciseWorkouts.map(w => w.sets));
+    
+    // Find workouts achieved AT the max weight
+    const maxWeightWorkouts = exerciseWorkouts.filter(w => w.weight === maxWeight);
+    
+    // Get best reps and sets achieved at that record weight
+    const maxReps = Math.max(...maxWeightWorkouts.map(w => w.reps));
+    const maxSets = Math.max(...maxWeightWorkouts.map(w => w.sets));
 
     return { maxWeight, maxReps, maxSets };
   }, [selectedExercise, workouts]);
@@ -132,11 +137,11 @@ const ProgressTracker = ({ exercises, onWorkoutAdded, workouts = [] }) => {
                 <div className="text-sm font-bold text-amber-700 dark:text-teal-accent/90">{prStats.maxWeight} <span className="text-[10px] font-normal">kg</span></div>
               </div>
                <div className="bg-amber-50 dark:bg-dark-teal/10 border border-amber-100 dark:border-dark-teal/20 rounded-lg p-2 text-center">
-                <div className="text-[10px] uppercase text-amber-600 dark:text-teal-accent font-bold tracking-wider">Max Sets</div>
+                <div className="text-[10px] uppercase text-amber-600 dark:text-teal-accent font-bold tracking-wider">Best Sets</div>
                 <div className="text-sm font-bold text-amber-700 dark:text-teal-accent/90">{prStats.maxSets}</div>
               </div>
                <div className="bg-amber-50 dark:bg-dark-teal/10 border border-amber-100 dark:border-dark-teal/20 rounded-lg p-2 text-center">
-                <div className="text-[10px] uppercase text-amber-600 dark:text-teal-accent font-bold tracking-wider">Max Reps</div>
+                <div className="text-[10px] uppercase text-amber-600 dark:text-teal-accent font-bold tracking-wider">Best Reps</div>
                 <div className="text-sm font-bold text-amber-700 dark:text-teal-accent/90">{prStats.maxReps}</div>
               </div>
             </div>
