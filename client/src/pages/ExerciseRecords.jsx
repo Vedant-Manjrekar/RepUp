@@ -165,7 +165,7 @@ const ExerciseRecords = () => {
                       className="bg-white dark:bg-dark-card rounded-[1.5rem] p-5 shadow-sm border border-gray-100 dark:border-gray-800 flex flex-col sm:flex-row sm:items-center justify-between group hover:border-indigo-200 dark:hover:border-teal-accent hover:shadow-md transition-all duration-300 gap-4"
                     >
                       <div className="flex items-center gap-4">
-                        <div className="h-12 w-12 min-w-[48px] rounded-2xl bg-gray-50 dark:bg-gray-800 flex items-center justify-center text-gray-400 dark:text-gray-500 group-hover:bg-indigo-50 dark:group-hover:bg-indigo-900/30 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                        <div className="h-12 w-12 min-w-[48px] rounded-2xl bg-indigo-50/70 dark:bg-gray-800 border border-indigo-100/50 dark:border-transparent flex items-center justify-center text-gray-400 dark:text-gray-500 group-hover:bg-indigo-100 dark:group-hover:bg-indigo-900/30 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
                           <Target className="h-6 w-6" />
                         </div>
                         <div>

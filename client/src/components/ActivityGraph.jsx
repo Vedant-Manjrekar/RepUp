@@ -8,13 +8,13 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from 'recharts';
-import { BarChart3, ChevronDown, Trophy } from 'lucide-react';
+import { BarChart3, ChevronDown, Trophy, TrendingUp, TrendingDown } from 'lucide-react';
 
 const ActivityGraph = ({ workouts, exercises, selectedExerciseId, onSelectExercise }) => {
   const chartData = useMemo(() => {
     if (!workouts || !selectedExerciseId) return [];
 
-    return workouts
+    const filtered = workouts
       .filter((workout) => {
         const wExerciseId = typeof workout.exercise === 'object' ? workout.exercise._id : workout.exercise;
         return wExerciseId === selectedExerciseId;
@@ -31,6 +31,16 @@ const ActivityGraph = ({ workouts, exercises, selectedExerciseId, onSelectExerci
         };
       })
       .sort((a, b) => a.timestamp - b.timestamp);
+
+    // Calculate trend lines
+    return filtered.map((data, index) => {
+      if (index === 0) return { ...data, trend: null };
+      const prevWeight = filtered[index - 1].weight;
+      let trend = null;
+      if (data.weight > prevWeight) trend = 'up';
+      else if (data.weight < prevWeight) trend = 'down';
+      return { ...data, trend };
+    });
   }, [workouts, selectedExerciseId]);
 
   const stats = useMemo(() => {
@@ -58,8 +68,12 @@ const ActivityGraph = ({ workouts, exercises, selectedExerciseId, onSelectExerci
           <p className="text-xs font-semibold text-gray-500 dark:text-gray-400 mb-2">{new Date(label).toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' })}</p>
           <div className="flex items-center gap-2 mb-2">
              <div className="w-2 h-2 rounded-full bg-indigo-600 dark:bg-teal-accent"></div>
-             <p className="text-lg font-bold text-indigo-900 dark:text-gray-100">{data.weight} <span className="text-xs font-normal text-gray-500 dark:text-gray-400">kg</span></p>
-             {isPR && <Trophy className="h-3 w-3 text-amber-500 ml-1" />}
+             <div className="flex items-baseline gap-1.5">
+                <p className="text-lg font-bold text-indigo-900 dark:text-gray-100">{data.weight} <span className="text-xs font-normal text-gray-500 dark:text-gray-400">kg</span></p>
+                {data.trend === 'up' && <TrendingUp className="h-3.5 w-3.5 text-emerald-500 mb-0.5" />}
+                {data.trend === 'down' && <TrendingDown className="h-3.5 w-3.5 text-rose-500 mb-0.5" />}
+             </div>
+             {isPR && <Trophy className="h-3 w-3 text-amber-500 ml-auto" />}
           </div>
           <div className="text-xs text-gray-500 dark:text-gray-400 flex gap-3 pl-3 border-t border-gray-100 dark:border-gray-800 pt-2">
              <span><span className="font-semibold text-gray-700 dark:text-gray-300">{data.sets}</span> sets</span>

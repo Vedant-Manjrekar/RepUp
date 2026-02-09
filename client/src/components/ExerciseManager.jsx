@@ -198,7 +198,7 @@ const ExerciseManager = ({ exercises, setExercises }) => {
               className={`flex items-center justify-between p-3.5 rounded-2xl border transition-all duration-300 ${
                   editId === exercise._id 
                   ? 'bg-indigo-50/50 dark:bg-indigo-900/10 border-indigo-200 dark:border-indigo-800 shadow-sm' 
-                  : 'bg-gray-50/30 dark:bg-dark-bg/30 border-gray-100/50 dark:border-gray-800/50 hover:border-violet-200 dark:hover:border-teal-accent/30 hover:bg-white dark:hover:bg-dark-bg'
+                  : 'bg-white dark:bg-dark-bg/30 border-gray-200 dark:border-gray-800/50 hover:border-violet-200 dark:hover:border-teal-accent/30 hover:bg-white dark:hover:bg-dark-bg transition-all'
               }`}
             >
               <div className="flex items-center gap-3">
