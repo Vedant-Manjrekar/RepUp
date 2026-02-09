@@ -137,11 +137,11 @@ const ProgressTracker = ({ exercises, onWorkoutAdded, workouts = [] }) => {
                 <div className="text-sm font-bold text-amber-700 dark:text-teal-accent/90">{prStats.maxWeight} <span className="text-[10px] font-normal">kg</span></div>
               </div>
                <div className="bg-amber-50 dark:bg-dark-teal/10 border border-amber-100 dark:border-dark-teal/20 rounded-lg p-2 text-center">
-                <div className="text-[10px] uppercase text-amber-600 dark:text-teal-accent font-bold tracking-wider">Best Sets</div>
+                <div className="text-[10px] uppercase text-amber-600 dark:text-teal-accent font-bold tracking-wider">Max Sets</div>
                 <div className="text-sm font-bold text-amber-700 dark:text-teal-accent/90">{prStats.maxSets}</div>
               </div>
                <div className="bg-amber-50 dark:bg-dark-teal/10 border border-amber-100 dark:border-dark-teal/20 rounded-lg p-2 text-center">
-                <div className="text-[10px] uppercase text-amber-600 dark:text-teal-accent font-bold tracking-wider">Best Reps</div>
+                <div className="text-[10px] uppercase text-amber-600 dark:text-teal-accent font-bold tracking-wider">Max Reps</div>
                 <div className="text-sm font-bold text-amber-700 dark:text-teal-accent/90">{prStats.maxReps}</div>
               </div>
             </div>

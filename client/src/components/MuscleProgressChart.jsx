@@ -19,15 +19,29 @@ const MuscleProgressChart = ({ workouts, selectedMuscle }) => {
 
     if (muscleWorkouts.length === 0) return { data: [], totalVolume: 0 };
 
-    // Aggregate volume by date
+    // Aggregation preparation
     const volumeByDate = {};
     let totalVolume = 0;
+    const lastWeightByEx = {};
 
-    muscleWorkouts.forEach(w => {
+    // Sort all workouts for this muscle chronologically to calculate trends
+    const sortedWorkouts = [...muscleWorkouts].sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+
+    sortedWorkouts.forEach(w => {
       const dateKey = new Date(w.date).toLocaleDateString();
       const volume = w.weight * w.reps * w.sets;
       const exName = typeof w.exercise === 'object' ? w.exercise.name : 'Unknown';
       
+      // Calculate exercise trend
+      const prevWeight = lastWeightByEx[exName];
+      let exTrend = null;
+      if (prevWeight !== undefined) {
+          if (w.weight > prevWeight) exTrend = 'up';
+          else if (w.weight < prevWeight) exTrend = 'down';
+          else exTrend = 'same';
+      }
+      lastWeightByEx[exName] = w.weight;
+
       if (!volumeByDate[dateKey]) {
         volumeByDate[dateKey] = {
           date: new Date(w.date),
@@ -37,7 +51,12 @@ const MuscleProgressChart = ({ workouts, selectedMuscle }) => {
         };
       }
       volumeByDate[dateKey].volume += volume;
-      volumeByDate[dateKey].exercises.push({ name: exName, weight: w.weight, volume });
+      volumeByDate[dateKey].exercises.push({ 
+          name: exName, 
+          weight: w.weight, 
+          volume,
+          trend: exTrend
+      });
       totalVolume += volume;
     });
 
@@ -92,8 +111,13 @@ const MuscleProgressChart = ({ workouts, selectedMuscle }) => {
              <p className="text-[9px] text-gray-400 dark:text-gray-500 uppercase tracking-wider font-semibold">Exercises</p>
              {data.exercises && data.exercises.slice(0, 5).map((ex, i) => (
                  <div key={i} className="flex justify-between text-[11px] items-center">
-                     <span className="text-gray-700 dark:text-gray-300 font-medium line-clamp-1 max-w-[110px]">{ex.name}</span>
-                     <span className="text-gray-500 dark:text-gray-400">{ex.weight}kg</span>
+                     <div className="flex items-center gap-1.5 min-w-0">
+                        {ex.trend === 'up' && <ArrowUpRight className="h-3 w-3 text-emerald-500 flex-shrink-0" strokeWidth={3} />}
+                        {ex.trend === 'down' && <ArrowDownRight className="h-3 w-3 text-orange-500 flex-shrink-0" strokeWidth={3} />}
+                        {ex.trend === 'same' && <Minus className="h-3 w-3 text-gray-300 dark:text-gray-600 flex-shrink-0" strokeWidth={3} />}
+                        <span className="text-gray-700 dark:text-gray-300 font-medium line-clamp-1">{ex.name}</span>
+                     </div>
+                     <span className="text-gray-500 dark:text-gray-400 font-bold ml-2">{ex.weight}kg</span>
                  </div>
              ))}
              {data.exercises?.length > 5 && (
