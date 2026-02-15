@@ -2,40 +2,12 @@ import { useState, useEffect, useMemo } from 'react';
 import { Loader2, Trophy, Calendar, Target, ChevronRight, Dumbbell } from 'lucide-react';
 import api from '../api/axios';
 import { useAuth } from '../context/AuthContext';
+import { useData } from '../context/DataContext';
 
 const ExerciseRecords = () => {
   const { user } = useAuth();
-  const [exercises, setExercises] = useState([]);
-  const [workouts, setWorkouts] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const { exercises, workouts, loading } = useData();
   const [selectedMuscle, setSelectedMuscle] = useState('All');
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const config = {
-          headers: {
-            Authorization: `Bearer ${user.token}`,
-          },
-        };
-
-        const [exercisesRes, workoutsRes] = await Promise.all([
-          api.get('/exercises', config),
-          api.get('/workouts', config),
-        ]);
-
-        setExercises(exercisesRes.data);
-        setWorkouts(workoutsRes.data);
-      } catch (error) {
-        console.error('Error fetching records:', error);
-      }
-      setLoading(false);
-    };
-
-    if (user) {
-      fetchData();
-    }
-  }, [user]);
 
   const muscleGroups = useMemo(() => {
     const groups = ['All', ...new Set(exercises.map(ex => ex.muscleGroup))];

@@ -2,6 +2,7 @@ import { useState, useEffect, useMemo } from 'react';
 import { Loader2, User, Dumbbell, Layers, Scale, TrendingUp, TrendingDown, ChevronDown, Target } from 'lucide-react';
 import api from '../api/axios';
 import { useAuth } from '../context/AuthContext';
+import { useData } from '../context/DataContext';
 import ActivityGraph from '../components/ActivityGraph';
 import MuscleProgressChart from '../components/MuscleProgressChart';
 import StatCard from '../components/StatCard';
@@ -13,49 +14,23 @@ const PREDEFINED_MUSCLE_GROUPS = [
 
 const Analytics = () => {
   const { user } = useAuth();
-  const [exercises, setExercises] = useState([]);
-  const [workouts, setWorkouts] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const { exercises, workouts, loading } = useData();
   const [timeframe, setTimeframe] = useState('week'); // 'day' | 'week' | 'month' | 'year' | 'all'
   const [selectedMuscle, setSelectedMuscle] = useState('Chest');
   const [selectedExerciseId, setSelectedExerciseId] = useState('');
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const config = {
-          headers: {
-            Authorization: `Bearer ${user.token}`,
-          },
-        };
-
-        const [exercisesRes, workoutsRes] = await Promise.all([
-          api.get('/exercises', config),
-          api.get('/workouts', config),
-        ]);
-
-        const allExercises = exercisesRes.data;
-        setExercises(allExercises);
-        setWorkouts(workoutsRes.data);
-        
+    if (!loading && exercises.length > 0) {
         // Find first exercise that matches the default muscle
-        const firstEx = allExercises.find(ex => ex.muscleGroup === 'Chest');
+        const firstEx = exercises.find(ex => ex.muscleGroup === 'Chest');
         if (firstEx) {
             setSelectedExerciseId(firstEx._id);
-        } else if (allExercises.length > 0) {
-            setSelectedExerciseId(allExercises[0]._id);
-            setSelectedMuscle(allExercises[0].muscleGroup);
+        } else if (exercises.length > 0) {
+            setSelectedExerciseId(exercises[0]._id);
+            setSelectedMuscle(exercises[0].muscleGroup);
         }
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-      setLoading(false);
-    };
-
-    if (user) {
-      fetchData();
     }
-  }, [user]);
+  }, [loading, exercises]);
 
   // Handle muscle change
   const handleMuscleChange = (muscle) => {

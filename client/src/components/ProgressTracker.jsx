@@ -1,9 +1,11 @@
 import { useState, useMemo } from 'react';
 import api from '../api/axios';
 import { useAuth } from '../context/AuthContext';
+import { useData } from '../context/DataContext';
 import { Activity, Calendar, Save, Loader2 } from 'lucide-react';
 
-const ProgressTracker = ({ exercises, onWorkoutAdded, workouts = [] }) => {
+const ProgressTracker = () => {
+  const { exercises, workouts, addWorkout } = useData(); // Use context
   const [selectedMuscleGroup, setSelectedMuscleGroup] = useState('');
   const [selectedExercise, setSelectedExercise] = useState('');
   const [weight, setWeight] = useState('');
@@ -70,7 +72,7 @@ const ProgressTracker = ({ exercises, onWorkoutAdded, workouts = [] }) => {
 
       const { data } = await api.post('/workouts', workoutData, config);
 
-      onWorkoutAdded(data);
+      addWorkout(data); // Use context method
       
       // Reset form but keep date and exercise potentially
       setWeight('');

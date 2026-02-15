@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import api from '../api/axios';
 import { useAuth } from '../context/AuthContext';
+import { useData } from '../context/DataContext';
 import ExerciseManager from '../components/ExerciseManager';
 import ProgressTracker from '../components/ProgressTracker';
 import RecentWorkouts from '../components/RecentWorkouts';
@@ -9,41 +10,8 @@ import { useState, useEffect } from "react";
 
 const Dashboard = () => {
   const { user } = useAuth();
-  const [exercises, setExercises] = useState([]);
-  const [workouts, setWorkouts] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const { loading } = useData(); // Only loading needed for spinner
   const [mobileViewMode, setMobileViewMode] = useState('log'); // 'log' | 'manage'
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const config = {
-          headers: {
-            Authorization: `Bearer ${user.token}`,
-          },
-        };
-
-        const [exercisesRes, workoutsRes] = await Promise.all([
-          api.get('/exercises', config),
-          api.get('/workouts', config),
-        ]);
-
-        setExercises(exercisesRes.data);
-        setWorkouts(workoutsRes.data);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-      setLoading(false);
-    };
-
-    if (user) {
-      fetchData();
-    }
-  }, [user]);
-
-  const handleWorkoutAdded = (newWorkout) => {
-    setWorkouts([newWorkout, ...workouts]);
-  };
 
   if (loading) {
     return (
@@ -98,21 +66,17 @@ const Dashboard = () => {
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
         {/* Left Col: Exercise Manager */}
         <div className={`xl:col-span-1 space-y-6 ${mobileViewMode === 'log' ? 'hidden lg:block' : 'block'}`}>
-          <ExerciseManager exercises={exercises} setExercises={setExercises} />
+          <ExerciseManager />
         </div>
 
         {/* Right Col: Logger & Recent History */}
         <div className={`xl:col-span-2 space-y-6 ${mobileViewMode === 'manage' ? 'hidden lg:block' : 'block'}`}>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 h-full">
              <div className="h-full">
-                <ProgressTracker 
-                  exercises={exercises} 
-                  onWorkoutAdded={handleWorkoutAdded} 
-                  workouts={workouts} 
-                />
+                <ProgressTracker />
              </div>
              <div className="h-[500px] lg:h-auto">
-                <RecentWorkouts workouts={workouts} setWorkouts={setWorkouts} />
+                <RecentWorkouts />
              </div>
           </div>
         </div>

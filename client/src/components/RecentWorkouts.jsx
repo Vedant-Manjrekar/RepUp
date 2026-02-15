@@ -3,9 +3,11 @@ import { format } from 'date-fns';
 import { Pencil, Trash2, X, Save, Check, Filter } from 'lucide-react';
 import api from '../api/axios';
 import { useAuth } from '../context/AuthContext';
+import { useData } from '../context/DataContext';
 
-const RecentWorkouts = ({ workouts, setWorkouts }) => {
+const RecentWorkouts = () => { // Removed props
   const { user } = useAuth();
+  const { workouts, updateWorkout, deleteWorkout } = useData(); // Get workouts from context
   const [editingId, setEditingId] = useState(null);
   const [editValues, setEditValues] = useState({});
   const [loading, setLoading] = useState(false);
@@ -30,7 +32,7 @@ const RecentWorkouts = ({ workouts, setWorkouts }) => {
     try {
       const config = { headers: { Authorization: `Bearer ${user.token}` } };
       await api.delete(`/workouts/${id}`, config);
-      setWorkouts(workouts.filter(w => w._id !== id));
+      deleteWorkout(id); // Update context
     } catch (error) {
       console.error('Error deleting workout:', error);
     }
@@ -58,8 +60,8 @@ const RecentWorkouts = ({ workouts, setWorkouts }) => {
       
       const { data } = await api.put(`/workouts/${id}`, editValues, config);
       
-      // Update local state
-      setWorkouts(workouts.map(w => w._id === id ? data : w));
+      // Update context
+      updateWorkout(data);
       setEditingId(null);
     } catch (error) {
       console.error('Error updating workout:', error);

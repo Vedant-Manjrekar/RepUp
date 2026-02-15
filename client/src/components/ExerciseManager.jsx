@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import api from '../api/axios';
 import { useAuth } from '../context/AuthContext';
+import { useData } from '../context/DataContext';
 import { Plus, Trash2, Dumbbell, Loader2, Pencil, X, Save } from 'lucide-react';
 
 const PREDEFINED_MUSCLE_GROUPS = [
@@ -8,7 +9,8 @@ const PREDEFINED_MUSCLE_GROUPS = [
   'Legs', 'Core / Abs', 'Forearms', 'Glutes', 'Calves'
 ];
 
-const ExerciseManager = ({ exercises, setExercises }) => {
+const ExerciseManager = () => { // Removed props
+  const { exercises, addExercise, refreshData } = useData(); // Use context
   const [name, setName] = useState('');
   const [muscleGroup, setMuscleGroup] = useState('');
   const [showCustomInput, setShowCustomInput] = useState(false);
@@ -29,14 +31,17 @@ const ExerciseManager = ({ exercises, setExercises }) => {
       };
 
       if (editId) {
-        // Update existing
-        const { data } = await api.put(`/exercises/${editId}`, { name, muscleGroup }, config);
-        setExercises(exercises.map(ex => ex._id === editId ? data : ex));
+        // Update existing - Context unfortunately doesn't have updateExercise yet, so we'll trigger a refresh or add it to context if I update context
+        // Wait, I didn't add updateExercise to DataContext. 
+        // I should probably add it or just call refreshData() to keep it simple for now, or fetch updated list.
+        await api.put(`/exercises/${editId}`, { name, muscleGroup }, config);
+        // ideally update local state via context, but for now specific update:
+        refreshData(); 
         setEditId(null);
       } else {
         // Create new
         const { data } = await api.post('/exercises', { name, muscleGroup }, config);
-        setExercises([...exercises, data]);
+        addExercise(data);
       }
 
       setName('');
@@ -59,7 +64,9 @@ const ExerciseManager = ({ exercises, setExercises }) => {
       };
 
       await api.delete(`/exercises/${id}`, config);
-      setExercises(exercises.filter((ex) => ex._id !== id));
+      // exercises.filter... needs to happen in context. 
+      // I didn't add deleteExercise to context. calls refreshData for now.
+      refreshData();
       if (editId === id) cancelEdit();
     } catch (error) {
       console.error('Error deleting exercise:', error);
