@@ -7,6 +7,7 @@ import AuthPage from './pages/AuthPage';
 import Dashboard from './pages/Dashboard';
 import Analytics from './pages/Analytics';
 import ExerciseRecords from './pages/ExerciseRecords';
+import SessionDetails from './pages/SessionDetails';
 import Layout from './components/Layout'; // Added import for Layout
 
 const ProtectedRoute = ({ children }) => {
@@ -49,6 +50,14 @@ const AppRoutes = () => {
           element={
             <ProtectedRoute>
               <ExerciseRecords />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/session/:date/:muscle"
+          element={
+            <ProtectedRoute>
+              <SessionDetails />
             </ProtectedRoute>
           }
         />

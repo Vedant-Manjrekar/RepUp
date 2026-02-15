@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   AreaChart,
   Area,
@@ -91,10 +92,15 @@ const MuscleProgressChart = ({ workouts, selectedMuscle }) => {
   }, [chartData]);
 
   const CustomTooltip = ({ active, payload, label }) => {
+    const navigate = useNavigate();
+
     if (active && payload && payload.length) {
       const data = payload[0].payload;
       return (
-        <div className="bg-white dark:bg-gray-900 p-3 rounded-lg shadow-xl border border-emerald-50 dark:border-gray-800 min-w-[180px] transition-colors duration-300">
+        <div 
+          className="bg-white dark:bg-gray-900 p-3 rounded-lg shadow-xl border border-emerald-50 dark:border-gray-800 min-w-[180px] transition-colors duration-300"
+          style={{ pointerEvents: 'auto' }} // Ensure clicks are captured
+        >
           <p className="text-xs font-semibold text-gray-500 dark:text-gray-400 mb-2">{new Date(label).toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' })}</p>
           
           <div className="flex items-center justify-between mb-2 border-b border-gray-100 dark:border-gray-800 pb-2">
@@ -109,7 +115,7 @@ const MuscleProgressChart = ({ workouts, selectedMuscle }) => {
 
           <div className="space-y-1.5">
              <p className="text-[9px] text-gray-400 dark:text-gray-500 uppercase tracking-wider font-semibold">Exercises</p>
-             {data.exercises && data.exercises.slice(0, 5).map((ex, i) => (
+             {data.exercises && data.exercises.slice(0, 4).map((ex, i) => (
                  <div key={i} className="flex justify-between text-[11px] items-center">
                      <div className="flex items-center gap-1.5 min-w-0">
                         {ex.trend === 'up' && <ArrowUpRight className="h-3 w-3 text-emerald-500 flex-shrink-0" strokeWidth={3} />}
@@ -120,8 +126,16 @@ const MuscleProgressChart = ({ workouts, selectedMuscle }) => {
                      <span className="text-gray-500 dark:text-gray-400 font-bold ml-2">{ex.weight}kg</span>
                  </div>
              ))}
-             {data.exercises?.length > 5 && (
-                 <div className="text-[9px] text-gray-400 dark:text-gray-500 italic text-center pt-1">+{data.exercises.length - 5} more</div>
+             {data.exercises?.length > 4 && (
+                 <button 
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    navigate(`/session/${data.timestamp}/${selectedMuscle}`);
+                  }}
+                  className="w-full mt-2 py-1.5 bg-gray-50 dark:bg-gray-800 text-[10px] font-bold text-indigo-600 dark:text-teal-accent hover:bg-indigo-50 dark:hover:bg-indigo-900/30 rounded-lg transition-all border border-indigo-100/50 dark:border-indigo-900/30"
+                 >
+                   View All {data.exercises.length} Exercises
+                 </button>
              )}
           </div>
         </div>
@@ -161,7 +175,11 @@ const MuscleProgressChart = ({ workouts, selectedMuscle }) => {
                   <stop offset="95%" stopColor="#2ba09d" stopOpacity={0}/>
                 </linearGradient>
               </defs>
-              <Tooltip content={<CustomTooltip />} cursor={{ stroke: '#2ba09d', strokeWidth: 1, strokeDasharray: '4 4' }} />
+              <Tooltip 
+                content={<CustomTooltip />} 
+                cursor={{ stroke: '#2ba09d', strokeWidth: 1, strokeDasharray: '4 4' }} 
+                wrapperStyle={{ pointerEvents: 'auto' }}
+              />
               <Area
                 type="monotone"
                 dataKey="volume"
