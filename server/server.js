@@ -2,7 +2,6 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const dotenv = require('dotenv');
-const path = require('path');
 
 dotenv.config();
 
@@ -79,17 +78,6 @@ const workoutRoutes = require('./routes/workoutRoutes');
 app.use('/api/auth', authRoutes);
 app.use('/api/exercises', exerciseRoutes);
 app.use('/api/workouts', workoutRoutes);
-
-// ✅ 4. Serve Static Files (Production)
-if (process.env.NODE_ENV === 'production') {
-  // Serve static files from the React app build
-  app.use(express.static(path.join(__dirname, '../client/dist')));
-
-  // Catch-all route to serve index.html for any request that hasn't been handled
-  app.get('(.*)', (req, res) => {
-    res.sendFile(path.resolve(__dirname, '../client', 'dist', 'index.html'));
-  });
-}
 
 
 /* =========================
