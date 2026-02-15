@@ -187,6 +187,8 @@ const MuscleProgressChart = ({ workouts, selectedMuscle }) => {
                 strokeWidth={3}
                 fill="url(#colorVolume)"
                 fillOpacity={0.6}
+                dot={{ r: 4, fill: '#2ba09d', strokeWidth: 2, stroke: '#fff' }}
+                activeDot={{ r: 6, fill: '#2ba09d', strokeWidth: 2, stroke: '#fff' }}
               />
               <XAxis dataKey="timestamp" hide />
             </AreaChart>
