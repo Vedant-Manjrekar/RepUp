@@ -48,11 +48,13 @@ const Analytics = () => {
     if (timeframe === 'all') return data;
     const now = new Date();
     const cutoffDate = new Date();
+    cutoffDate.setHours(0, 0, 0, 0); // Reset to start of today
+    
     switch (timeframe) {
-      case 'day': cutoffDate.setDate(now.getDate() - 1); break;
-      case 'week': cutoffDate.setDate(now.getDate() - 7); break;
-      case 'month': cutoffDate.setMonth(now.getMonth() - 1); break;
-      case 'year': cutoffDate.setFullYear(now.getFullYear() - 1); break;
+      case 'day': cutoffDate.setDate(cutoffDate.getDate() - 1); break;
+      case 'week': cutoffDate.setDate(cutoffDate.getDate() - 7); break;
+      case 'month': cutoffDate.setMonth(cutoffDate.getMonth() - 1); break;
+      case 'year': cutoffDate.setFullYear(cutoffDate.getFullYear() - 1); break;
       default: return data;
     }
     return data.filter(item => new Date(item.date) >= cutoffDate);
