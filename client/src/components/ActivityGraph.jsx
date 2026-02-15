@@ -159,6 +159,8 @@ const ActivityGraph = ({ workouts, exercises, selectedExerciseId, onSelectExerci
                 strokeWidth={3}
                 fillOpacity={1}
                 fill="url(#colorWeight)"
+                dot={{ r: 4, fill: '#2ba09d', strokeWidth: 2, stroke: '#fff' }}
+                activeDot={{ r: 6, fill: '#2ba09d', strokeWidth: 2, stroke: '#fff' }}
               />
             </AreaChart>
           </ResponsiveContainer>
